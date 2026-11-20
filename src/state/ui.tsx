@@ -1,5 +1,6 @@
 import { createContext, type ReactNode, useContext, useState } from "react";
-import { AddCandidateModal, ScheduleInterviewModal } from "../components/ats";
+import { useNavigate } from "react-router-dom";
+import { ScheduleInterviewModal } from "../components/ats";
 
 type UI = {
   openSchedule: (candidateId?: string) => void;
@@ -11,14 +12,10 @@ const UICtx = createContext<UI>({
 });
 
 export function UIProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
   const [schedule, setSchedule] = useState<{
     open: boolean;
     candidateId?: string;
-    key: number;
-  }>({ open: false, key: 0 });
-  const [add, setAdd] = useState<{
-    open: boolean;
-    jobId?: string;
     key: number;
   }>({ open: false, key: 0 });
   return (
@@ -27,7 +24,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
         openSchedule: (candidateId) =>
           setSchedule((s) => ({ open: true, candidateId, key: s.key + 1 })),
         openAddCandidate: (jobId) =>
-          setAdd((s) => ({ open: true, jobId, key: s.key + 1 })),
+          navigate(jobId ? `/candidates/new?job=${jobId}` : "/candidates/new"),
       }}
     >
       {children}
@@ -36,12 +33,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
         open={schedule.open}
         candidateId={schedule.candidateId}
         onClose={() => setSchedule((s) => ({ ...s, open: false }))}
-      />
-      <AddCandidateModal
-        key={`a${add.key}`}
-        open={add.open}
-        jobId={add.jobId}
-        onClose={() => setAdd((s) => ({ ...s, open: false }))}
       />
     </UICtx.Provider>
   );

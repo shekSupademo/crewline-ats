@@ -6,6 +6,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Interviews } from "./pages/Interviews";
 import { JobPipeline } from "./pages/JobPipeline";
 import { Jobs } from "./pages/Jobs";
+import { NewCandidate } from "./pages/NewCandidate";
 import { Settings } from "./pages/Settings";
 import { StoreProvider } from "./state/store";
 import { ToastProvider } from "./state/toast";
@@ -24,6 +25,7 @@ export function App() {
                 <Route path="jobs" element={<Jobs />} />
                 <Route path="jobs/:id" element={<JobPipeline />} />
                 <Route path="candidates" element={<Candidates />} />
+                <Route path="candidates/new" element={<NewCandidate />} />
                 <Route path="candidates/:id" element={<CandidateProfile />} />
                 <Route path="interviews" element={<Interviews />} />
                 <Route path="settings" element={<Settings />} />
