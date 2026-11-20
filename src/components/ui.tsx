@@ -97,7 +97,7 @@ function useEscape(open: boolean, onClose: () => void) {
   }, [open, onClose]);
 }
 
-export function Modal({ open, onClose, title, children, footer, wide, testId }: { open: boolean; onClose: () => void; title: string; children: ReactNode; footer?: ReactNode; wide?: boolean; testId?: string }) {
+export function Modal({ open, onClose, title, children, footer, wide, testId }: { open: boolean; onClose: () => void; title: string; children: ReactNode; footer?: ReactNode; wide?: boolean | "xl"; testId?: string }) {
   useEscape(open, onClose);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -106,7 +106,7 @@ export function Modal({ open, onClose, title, children, footer, wide, testId }: 
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-zinc-950/50 p-4 pt-[10vh] backdrop-blur" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={ref} role="dialog" aria-modal="true" aria-label={title} data-testid={testId} className={cx("w-full overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl ring-1 ring-black/5 dark:border-zinc-800 dark:bg-zinc-900", wide ? "max-w-2xl" : "max-w-md")}>
+      <div ref={ref} role="dialog" aria-modal="true" aria-label={title} data-testid={testId} className={cx("w-full overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl ring-1 ring-black/5 dark:border-zinc-800 dark:bg-zinc-900", wide === "xl" ? "max-w-4xl" : wide ? "max-w-2xl" : "max-w-md")}>
         <header className="flex items-center justify-between border-b border-zinc-100 bg-zinc-50/80 px-5 py-4 dark:border-zinc-800 dark:bg-zinc-800/40">
           <h2 className="text-base font-semibold tracking-tight">{title}</h2>
           <button aria-label="Close" onClick={onClose} className="rounded p-1 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800">

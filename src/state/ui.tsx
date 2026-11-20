@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ScheduleInterviewModal } from "../components/ats";
+import { ScheduleInterviewModal } from "../components/ScheduleInterview";
 
 type UI = {
   openSchedule: (candidateId?: string) => void;
