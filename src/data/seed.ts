@@ -278,7 +278,7 @@ export function createSeed(): AppState {
   const candidates: Candidate[] = [];
   for (let i = 0; i < 84; i++) {
     const job = jobs[i % 7 === 6 ? 7 : i % 6];
-    const name = `${first[i % first.length]} ${last[(i * 7) % last.length]}`;
+    const name = `${first[i % first.length]} ${last[(i * 7 + Math.floor(i / first.length) * 3) % last.length]}`;
     const stageRoll = r();
     const stage =
       STAGES[
